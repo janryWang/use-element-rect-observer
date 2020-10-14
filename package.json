@@ -1,6 +1,6 @@
 {
   "name": "use-element-rect-observer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "lib",
   "types": "lib/index.d.ts",

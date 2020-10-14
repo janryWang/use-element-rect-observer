@@ -1,5 +1,5 @@
 import ResizeObserver from 'resize-observer-polyfill'
-import IntersectionObserver from 'intersection-observer'
+import 'intersection-observer'
 
 type RectListener = (rect: DOMRect) => void
 
@@ -15,9 +15,7 @@ export class ElementRectObserver {
     this.listener = listener
     this.contentWindow = contentWindow
     this.resizeObserver = new ResizeObserver(this.onChange)
-    this.intersectionObserver = new IntersectionObserver(
-      this.onChange
-    )
+    this.intersectionObserver = new IntersectionObserver(this.onChange)
   }
 
   onChange = () => {

@@ -6,11 +6,10 @@ export const useElementRectObserver = (
   callback: (rect: DOMRect) => void,
   contentWindow?: Window
 ) => {
-  const observer = useCallback(callback, [])
   const lastElement = useRef<Element | HTMLElement | HTMLDivElement>()
   useEffect(() => {
     const resizeObserver = new ElementRectObserver((rect) => {
-      observer(rect)
+      if(typeof callback === 'function') callback(rect)
     }, contentWindow)
     if (element) {
       if (lastElement.current && element !== lastElement.current) {

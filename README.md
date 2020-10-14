@@ -1,5 +1,7 @@
 # use-element-rect-observer
 
+> This is a React Hook, which is specifically used to monitor the Bounding Rect of the element in real time.
+
 ## Install
 
 ```bash

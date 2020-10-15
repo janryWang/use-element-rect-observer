@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ElementRectObserver } from './ElementRectObserver'
 
 export const useElementRectObserver = (
@@ -9,7 +9,7 @@ export const useElementRectObserver = (
   const lastElement = useRef<Element | HTMLElement | HTMLDivElement>()
   useEffect(() => {
     const resizeObserver = new ElementRectObserver((rect) => {
-      if(typeof callback === 'function') callback(rect)
+      if (typeof callback === 'function') callback(rect)
     }, contentWindow)
     if (element) {
       if (lastElement.current && element !== lastElement.current) {

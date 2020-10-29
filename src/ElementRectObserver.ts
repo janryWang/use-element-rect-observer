@@ -33,7 +33,11 @@ export class ElementRectObserver {
     this.mutationObserver.observe(element?.parentNode, {
       childList: true,
     })
-    this.container.addEventListener('resize', this.onChange)
+    if (this.container?.toString()?.indexOf('Window') === -1) {
+      this.resizeObserver.observe(this.container)
+    } else {
+      this.container.addEventListener('resize', this.onChange)
+    }
     this.container.addEventListener('scroll', this.onChange)
   }
 
@@ -42,7 +46,11 @@ export class ElementRectObserver {
     this.resizeObserver.unobserve(element)
     this.intersectionObserver.unobserve(element)
     this.mutationObserver.disconnect()
-    this.container.removeEventListener('resize', this.onChange)
+    if (this.container?.toString()?.indexOf('Window') === -1) {
+      this.resizeObserver.unobserve(this.container)
+    } else {
+      this.container.removeEventListener('resize', this.onChange)
+    }
     this.container.removeEventListener('scroll', this.onChange)
   }
 }

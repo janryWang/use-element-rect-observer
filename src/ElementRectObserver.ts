@@ -4,16 +4,19 @@ type RectListener = (rect: DOMRect) => void
 
 export class ElementRectObserver {
   listener: RectListener
-  contentWindow: Window
+  container: HTMLElement | Window | Document
   target: Element
   animationFrame: number | null
   resizeObserver: any
   intersectionObserver: IntersectionObserver
   mutationObserver: MutationObserver
 
-  constructor(listener: RectListener, contentWindow: Window = window) {
+  constructor(
+    listener: RectListener,
+    container: HTMLElement | Window | Document = window
+  ) {
     this.listener = listener
-    this.contentWindow = contentWindow
+    this.container = container
     this.resizeObserver = new ResizeObserver(this.onChange)
     this.intersectionObserver = new IntersectionObserver(this.onChange)
     this.mutationObserver = new MutationObserver(this.onChange)
@@ -30,8 +33,8 @@ export class ElementRectObserver {
     this.mutationObserver.observe(element?.parentNode, {
       childList: true,
     })
-    this.contentWindow.addEventListener('resize', this.onChange)
-    this.contentWindow.addEventListener('scroll', this.onChange)
+    this.container.addEventListener('resize', this.onChange)
+    this.container.addEventListener('scroll', this.onChange)
   }
 
   unobserve(element: Element) {
@@ -39,7 +42,7 @@ export class ElementRectObserver {
     this.resizeObserver.unobserve(element)
     this.intersectionObserver.unobserve(element)
     this.mutationObserver.disconnect()
-    this.contentWindow.removeEventListener('resize', this.onChange)
-    this.contentWindow.removeEventListener('scroll', this.onChange)
+    this.container.removeEventListener('resize', this.onChange)
+    this.container.removeEventListener('scroll', this.onChange)
   }
 }
